@@ -1,0 +1,28 @@
+---
+title: "LakeHuron"
+author: "yifeng luo"
+date: "Sep 24, 2018"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(ggplot2, knitr,shiny,tidyverse,car,nycflights13)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Inputs and Outputs
+
+
+```{r eruptions, echo=FALSE ,warning=FALSE}
+inputPanel(checkboxInput("smooth", label = "Add smoother?", value = FALSE))
+
+year <- c(1875:1972)
+Lake_Huron <- data.frame(year,LakeHuron)
+
+renderPlot({
+  if(input$smooth){ggplot(Lake_Huron) + aes(x=year,y=LakeHuron) + geom_line()+geom_point(color="blue") + geom_smooth(method = "auto", color="red", se=FALSE)
+    }else{ggplot(Lake_Huron) + aes(x=year,y=LakeHuron) + geom_line()}; 
+})
+```
