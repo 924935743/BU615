@@ -1,0 +1,45 @@
+---
+title: "Video Views in YouTube"
+name: yifeng luo
+output: 
+    flexdashboard::flex_dashboard
+
+---
+```{r}
+library(flexdashboard)
+library(ggplot2)
+library(tidyverse)
+youtube.us<-read_csv("/Users/yifeng/Desktop/678_final_project/youtube-new/model_data.csv")
+
+```
+
+    
+Column {data-width=500}
+-------------------------------------
+    
+### Video Views Vary by Video Category
+    
+```{r}
+  ggplot(youtube.us) +aes(factor(category),log(views),fill=category)+geom_boxplot(show.legend = F)+theme(axis.text.x = element_text(angle = 15))
+
+
+```
+
+
+Column {data-width=500}
+-------------------------------------
+    
+### Video Views VS. Likes
+    
+```{r}
+ggplot(youtube.us) +aes(log(likes),log(views))+geom_jitter(alpha=0.1)+geom_smooth()
+
+
+```
+    
+###  Video Views VS. Dislikes
+```{r}
+ggplot(youtube.us) +aes(log(dislikes),log(views))+geom_jitter(alpha=0.1)+geom_smooth()
+
+
+```
